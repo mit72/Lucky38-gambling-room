@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     font-size: 2vh;
-    font-family: myFirstFont;
+    font-family: fnvFont;
     color: #e0bf48;
 }
 
@@ -16,9 +16,34 @@ html {
     background-attachment: fixed;
 }
 
+body, form{
+    height: 100%;
+}
+
+form{
+    display: flex;
+}
+
 #titleImg{
     height: 25vh;
 
+}
+
+#mainContainer{
+    height: 95%;
+    width: 60%;
+    display: block;
+    margin: auto;
+    border: 1vh rgba(255, 211, 65, 0.8), solid;
+    border-radius: 0.5vh;
+    box-shadow: 0 0 3vw 1vw #e0bf48;
+    color: #e0bf48;
+    text-shadow: #e0bf48;
+    background-image: url(../img/static.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 #topContainer{
@@ -36,10 +61,11 @@ html {
 
 #playerCenterContainer{
     display: flex;
-    width: 100vw;
+    width: 100%;
     justify-content: space-evenly;
     align-items: center;
     padding-top: 20vh;
+    margin-bottom: 5vh;
 }
 
 #bottomContainer{
@@ -67,7 +93,7 @@ html {
 
 #controlCenterContainer{
     display: flex;
-    width: 100vw;
+    width: 100%;
     justify-content: space-evenly;
     align-items: center;
 }
@@ -90,6 +116,6 @@ select{
 }
 
 @font-face {
-    font-family: myFirstFont;
+    font-family: fnvFont;
     src: url(../fonts/monofonto.ttf);
 }
