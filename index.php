@@ -52,9 +52,9 @@ session_destroy();
                         <label for="dice">Number of dice:</label>
                         <div class="select-wrapper">
                             <select name="dice" id="dice" required>
-                                <option selected>1</option>
-                                <option>2</option>
-                                <option>3</option>
+                                <option selected value="1">1</option>
+                                <option  value="2">2</option>
+                                <option value="3">3</option>
                             </select>
                             <div class="select-arrow"></div>
                         </div>
@@ -64,15 +64,15 @@ session_destroy();
                         <label for="rounds">Number of rounds:</label>
                         <div class="select-wrapper">
                             <select name="rounds" id="rounds" required>
-                                <option selected>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
+                                <option selected value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
                             </select>
                             <div class="select-arrow"></div>
                         </div>

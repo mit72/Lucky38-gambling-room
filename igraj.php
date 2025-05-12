@@ -73,14 +73,14 @@ if (isset($_POST['reroll'])) {
         <div class="button-wrapper">
             <?php if ($_SESSION['current_round'] < $_SESSION['rounds']): ?>
                 <form method="post">
-                    <input type="submit" id="button-go" name="reroll" value="Roll (<?= $_SESSION['current_round'] + 1 ?> of <?= $_SESSION['rounds'] ?>)" style="width: 200px;">
+                    <input type="submit" id="startButton" name="reroll" value="Roll (<?= $_SESSION['current_round'] + 1 ?> of <?= $_SESSION['rounds'] ?>)" style="width: 200px;">
                 </form>
             <?php else: ?>
                 <p style="font-weight: bold; color: green;">All rounds completed!</p>
             <?php endif; ?>
 
             <form action="konec.php">
-                <input type="submit" id="button-go" value="Leaderboard" style="width: 150px;">
+                <input type="submit" id="startButton" value="Leaderboard" style="width: 150px;">
             </form>
         </div>
     </div>
