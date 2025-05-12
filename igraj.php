@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-function rollOneRound($dice) {
+function rollOneRound($dice)
+{
     $players = $_SESSION['players'];
     foreach ($players as $i => $player) {
         $singleRound = [];
@@ -13,26 +14,21 @@ function rollOneRound($dice) {
     $_SESSION['players'] = $players;
 }
 
-// nastavi igro preko get samo ce prides prvic na page
-if (isset($_GET['fname1']) && !isset($_SESSION['players'])) {
-    $_SESSION['fname1'] = $_GET['fname1'];
-    $_SESSION['lname1'] = $_GET['lname1'];
-    $_SESSION['fname2'] = $_GET['fname2'];
-    $_SESSION['lname2'] = $_GET['lname2'];
-    $_SESSION['fname3'] = $_GET['fname3'];
-    $_SESSION['lname3'] = $_GET['lname3'];
-    $_SESSION['dice']   = (int)$_GET['dice'];
-    $_SESSION['rounds'] = min((int)$_GET['rounds'], 5);
-    $_SESSION['current_round'] = 0;
-
+// inicializacija
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['1']) && !isset($_SESSION['game_initialized'])) {
     $_SESSION['players'] = [
-        ['name' => $_SESSION['fname1'] . ' ' . $_SESSION['lname1'], 'rolls' => []],
-        ['name' => $_SESSION['fname2'] . ' ' . $_SESSION['lname2'], 'rolls' => []],
-        ['name' => $_SESSION['fname3'] . ' ' . $_SESSION['lname3'], 'rolls' => []]
+        ['name' => $_GET['1'] ?? 'Player 1', 'rolls' => []],
+        ['name' => $_GET['2'] ?? 'Player 2', 'rolls' => []],
+        ['name' => $_GET['3'] ?? 'Player 3', 'rolls' => []]
     ];
+    $_SESSION['dice'] = (int) $_GET['dice'];
+    $_SESSION['rounds'] = min((int) $_GET['rounds'], 9);
+    $_SESSION['current_round'] = 0;
+    $_SESSION['game_initialized'] = true;
 }
 
-if (isset($_POST['reroll'])) {
+// met kocke
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reroll'])) {
     if ($_SESSION['current_round'] < $_SESSION['rounds']) {
         rollOneRound($_SESSION['dice']);
         $_SESSION['current_round']++;
@@ -40,50 +36,76 @@ if (isset($_POST['reroll'])) {
 }
 ?>
 
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Lucky 38</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset='utf-8'>
+    <title>Lucky 38 Casino - Game</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/style.css'>
     <link rel="icon" type="image/png" href="img/Lucky38entsign.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+    </style>
 </head>
+
 <body>
-    <div id="name">
-        <h1>Lucky 38</h1>
-    </div>
+    <div class="noise-overlay"></div>
+    <div class="scanlines-overlay"></div>
 
-    <div id="basic-window">
-        <?php if (!empty($_SESSION['players'])): ?>
-            <?php foreach ($_SESSION['players'] as $player): ?>
-                <div class="basic">
-                    <strong><?= htmlspecialchars($player['name']) ?></strong><br><br>
-                    <?php foreach ($player['rolls'] as $index => $rolls): ?>
-                        Round <?= $index + 1 ?>:
-                        <?php foreach ($rolls as $die): ?>
-                            <span class="dice">🎲<?= $die ?></span>
-                        <?php endforeach; ?>
-                        <br>
-                    <?php endforeach; ?>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
-
-    <div id="basic-window" style="margin-top: 20px;">
-        <div class="button-wrapper">
-            <?php if ($_SESSION['current_round'] < $_SESSION['rounds']): ?>
-                <form method="post">
-                    <input type="submit" id="startButton" name="reroll" value="Roll (<?= $_SESSION['current_round'] + 1 ?> of <?= $_SESSION['rounds'] ?>)" style="width: 200px;">
-                </form>
-            <?php else: ?>
-                <p style="font-weight: bold; color: green;">All rounds completed!</p>
-            <?php endif; ?>
-
-            <form action="konec.php">
-                <input type="submit" id="startButton" value="Leaderboard" style="width: 150px;">
-            </form>
+    <div id="mainContainer">
+        <div id="topContainer" class="animate__animated animate__fadeInDown">
+            <img id="titleImg" src="img/Lucky38entsign.png" class="logo-glow">
+            <h1 class="neon-title">GAME IN PROGRESS</h1>
+            <p class="subtitle">
+                ROUND <?= (int) ($_SESSION['current_round'] ?? 0) ?>
+                OF <?= (int) ($_SESSION['rounds'] ?? 1) ?>
+            </p>
         </div>
-    </div>
 
+        <div class="rounds-wrapper">
+            <div id="centerContainer">
+                <?php if (!empty($_SESSION['players'])): ?>
+                    <?php foreach ($_SESSION['players'] as $player): ?>
+                        <div class="player-result">
+                            <h2><?= htmlspecialchars($player['name']) ?></h2>
+                            <?php if (!empty($player['rolls'])): ?>
+                                <?php foreach ($player['rolls'] as $index => $rolls): ?>
+                                    <p>Round <?= $index + 1 ?>:
+                                        <?php foreach ($rolls as $die): ?>
+                                            <span class="dice"><?= $die ?></span>
+                                        <?php endforeach; ?>
+                                        (Total: <?= array_sum($rolls) ?>)
+                                    </p>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>No rolls yet</p>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+                <div class="button-wrapper">
+                    <?php
+                    $currentRound = $_SESSION['current_round'] ?? 0;
+                    $totalRounds = $_SESSION['rounds'] ?? 1;
+
+                    if ($currentRound < $totalRounds): ?>
+                        <form method="post">
+                            <input type="submit" id="startButton" name="reroll" value="ROLL DICE">
+                        </form>
+                    <?php else: ?>
+                        <form action="konec.php">
+                            <input type="submit" id="startButton" value="VIEW RESULTS">
+                        </form>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
+
 </html>

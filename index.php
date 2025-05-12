@@ -19,7 +19,7 @@ session_destroy();
 <body>
     <div class="noise-overlay"></div>
     <div class="scanlines-overlay"></div>
-    
+
     <form action="igraj.php" method="GET">
         <div id="mainContainer">
             <div id="topContainer" class="animate__animated animate__fadeInDown">
@@ -27,66 +27,37 @@ session_destroy();
                 <h1 class="neon-title">LUCKY 38 CASINO</h1>
                 <p class="subtitle">EST. 2281 • NEW VEGAS</p>
             </div>
-            
+
             <div id="centerContainer">
                 <div id="playerCenterContainer">
                     <div class="player animate__animated animate__fadeInLeft">
                         <label>Player 1:</label>
-                        <input id="1" class="textInput" type="text" placeholder="Enter name">
+                        <input id="1" name="1" class="textInput" type="text" placeholder="Enter name" required>
                         <div class="input-glow"></div>
                     </div>
-                    <div class="player animate__animated animate__fadeInUp">
+                    <div class="player animate__animated animate__fadeInLeft">
                         <label>Player 2:</label>
-                        <input id="2" class="textInput" type="text" placeholder="Enter name">
+                        <input id="2" name="2" class="textInput" type="text" placeholder="Enter name" required>
                         <div class="input-glow"></div>
                     </div>
-                    <div class="player animate__animated animate__fadeInRight">
+                    <div class="player animate__animated animate__fadeInLeft">
                         <label>Player 3:</label>
-                        <input id="3" class="textInput" type="text" placeholder="Enter name">
+                        <input id="3" name="3" class="textInput" type="text" placeholder="Enter name" required>
                         <div class="input-glow"></div>
                     </div>
                 </div>
-                
-                <div id="controlCenterContainer">
-                    <div class="dropdown animate__animated animate__fadeInLeft animate__delay-1s">
-                        <label for="dice">Number of dice:</label>
-                        <div class="select-wrapper">
-                            <select name="dice" id="dice" required>
-                                <option selected value="1">1</option>
-                                <option  value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                            <div class="select-arrow"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="dropdown animate__animated animate__fadeInRight animate__delay-1s">
-                        <label for="rounds">Number of rounds:</label>
-                        <div class="select-wrapper">
-                            <select name="rounds" id="rounds" required>
-                                <option selected value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                            </select>
-                            <div class="select-arrow"></div>
-                        </div>
-                    </div>
+
+                <div id="gameSettingsContainer" class="animate__animated animate__fadeInRight">
+                    <label for="dice">Number of Dice (1-5):</label>
+                    <input id="dice" name="dice" type="number" min="1" max="5" value="1">
+                    <br>
+                    <label for="rounds">Number of Rounds (1-9):</label>
+                    <input id="rounds" name="rounds" type="number" min="1" max="9" value="1">
                 </div>
             </div>
-            
-            <div id="bottomContainer" class="animate__animated animate__fadeInUp animate__delay-2s">
-                <input type="submit" id="startButton" value="BEGIN GAME"> 
-                <!--
-                <button id="startButton" type="submit">
-                    <span class="btn-text">BEGIN GAME</span>
-                    <span class="btn-glow"></span>
-                </button> -->
+
+            <div id="bottomContainer" class="animate__animated animate__fadeInUp">
+                <input class="startButton" type="submit" value="Begin Game"></input>
             </div>
         </div>
     </form>
