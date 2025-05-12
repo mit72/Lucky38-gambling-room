@@ -47,7 +47,7 @@ Welcome to **Lucky38**, a Fallout-inspired retro-futuristic dice game built in P
 ## 📸 Screenshot
 
 ![Picture 1](img/picture1.png)
-![Gif 1 game](img/pic2.gif)
+![Gif 1 game](img/pic2.png)
 
 ---
 
