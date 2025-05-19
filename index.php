@@ -49,10 +49,10 @@ session_destroy();
 
                 <div id="gameSettingsContainer" class="animate__animated animate__fadeInRight">
                     <label for="dice">Number of Dice (1-5):</label>
-                    <input id="dice" name="dice" type="number" min="1" max="5" value="1">
+                    <input id="dice" name="dice" type="number" min="1" max="5" value="1" required>
                     <br>
                     <label for="rounds">Number of Rounds (1-9):</label>
-                    <input id="rounds" name="rounds" type="number" min="1" max="9" value="1">
+                    <input id="rounds" name="rounds" type="number" min="1" max="9" value="1" required>
                 </div>
             </div>
 
